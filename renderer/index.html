@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Apna Study Browser</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="toolbar">
+    <div class="nav-controls">
+      <button id="back-btn" disabled>←</button>
+      <button id="forward-btn" disabled>→</button>
+      <button id="refresh-btn">⟳</button>
+      <button id="home-btn">🏠</button>
+    </div>
+
+    <div class="url-container">
+      <input id="url-bar" type="text" placeholder="Search or enter URL...">
+      <button id="go-btn">Go</button>
+    </div>
+
+    <div class="feature-controls">
+      <button id="summarize-btn" class="feature-btn" title="AI Summarize">
+        📝 <span>Summarize</span>
+      </button>
+      <button id="notes-btn" class="feature-btn" title="Generate Notes">
+        📓 <span>Notes</span>
+      </button>
+      <button id="qna-btn" class="feature-btn" title="Ask Questions">
+        💬 <span>Ask AI</span>
+      </button>
+      <button id="flashcards-btn" class="feature-btn" title="Flashcards">
+        🎴 <span>Cards</span>
+      </button>
+      <button id="translate-btn" class="feature-btn" title="Translate">
+        🌍 <span>Translate</span>
+      </button>
+      <button id="reading-btn" class="feature-btn" title="Reading Mode">
+        📖 <span>Read</span>
+      </button>
+      <button id="timer-btn" class="feature-btn" title="Study Timer">
+        ⏱️ <span>Timer</span>
+      </button>
+      <button id="focus-btn" class="feature-btn" title="Focus Mode">
+        🎯 <span>Focus</span>
+      </button>
+      <button id="screenshot-btn" class="feature-btn" title="Screenshot">
+        📸 <span>Snap</span>
+      </button>
+      <button id="citation-btn" class="feature-btn" title="Cite">
+        📚 <span>Cite</span>
+      </button>
+    </div>
+  </div>
+
+  <div id="progress-bar" class="progress-bar"></div>
+
+  <div class="main-content">
+    <div id="sidebar" class="sidebar hidden">
+      <div class="sidebar-header">
+        <h3 id="sidebar-title">AI Assistant</h3>
+        <button id="close-sidebar">×</button>
+      </div>
+      <div id="sidebar-content"></div>
+    </div>
+
+    <div class="webview-container">
+      <webview id="webview" src="homepage.html"></webview>
+    </div>
+  </div>
+
+  <div class="status-bar">
+    <span>📚 Today: <span id="today-time">0h 0m</span></span>
+    <span>🔥 Streak: <span id="streak-count">0</span> days</span>
+    <span id="focus-status" class="hidden">🎯 Focus Mode Active</span>
+  </div>
+
+  <div id="floating-timer" class="floating-timer hidden">
+    <div id="timer-display">25:00</div>
+    <button id="timer-pause">⏸</button>
+    <button id="timer-stop">⏹</button>
+  </div>
+
+  <script src="utils/helpers.js"></script>
+  <script src="utils/storage.js"></script>
+  <script src="utils/api.js"></script>
+  <script src="features/summarizer.js"></script>
+  <script src="features/notes.js"></script>
+  <script src="features/qna.js"></script>
+  <script src="features/focus-mode.js"></script>
+  <script src="features/translator.js"></script>
+  <script src="features/flashcards.js"></script>
+  <script src="features/citations.js"></script>
+  <script src="features/study-timer.js"></script>
+  <script src="features/reading-mode.js"></script>
+  <script src="features/screenshots.js"></script>
+  <script src="features/dictionary.js"></script>
+  <script src="features/achievements.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

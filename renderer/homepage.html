@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Apna Study Browser - Home</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container { max-width: 800px; text-align: center; }
+    h1 {
+      color: white;
+      font-size: 48px;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+    }
+    .tagline {
+      color: rgba(255,255,255,0.9);
+      font-size: 18px;
+      margin-bottom: 40px;
+    }
+    .search-box {
+      display: flex;
+      background: white;
+      border-radius: 50px;
+      padding: 5px;
+      margin-bottom: 50px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+    }
+    .search-box input {
+      flex: 1;
+      border: none;
+      padding: 15px 25px;
+      font-size: 16px;
+      outline: none;
+    }
+    .search-box button {
+      padding: 15px 30px;
+      background: #667eea;
+      color: white;
+      border: none;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .quick-links {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    .link-card {
+      background: rgba(255,255,255,0.95);
+      padding: 20px;
+      border-radius: 15px;
+      text-decoration: none;
+      color: #2d3748;
+      transition: 0.3s;
+    }
+    .link-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+    }
+    .icon { font-size: 32px; margin-bottom: 10px; }
+    .name { font-weight: 600; font-size: 14px; }
+    .footer {
+      color: rgba(255,255,255,0.8);
+      font-size: 14px;
+      margin-top: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎓 Apna Study Browser</h1>
+    <p class="tagline" id="greeting">Good Morning! Happy Learning 📚</p>
+
+    <form class="search-box" onsubmit="handleSearch(event)">
+      <input id="search-input" type="text" placeholder="Search Google or enter URL..." autofocus>
+      <button type="submit">Search</button>
+    </form>
+
+    <div class="quick-links">
+      <a href="https://en.wikipedia.org" class="link-card">
+        <div class="icon">📚</div>
+        <div class="name">Wikipedia</div>
+      </a>
+      <a href="https://www.khanacademy.org" class="link-card">
+        <div class="icon">🎓</div>
+        <div class="name">Khan Academy</div>
+      </a>
+      <a href="https://nptel.ac.in" class="link-card">
+        <div class="icon">🎥</div>
+        <div class="name">NPTEL</div>
+      </a>
+      <a href="https://www.youtube.com/education" class="link-card">
+        <div class="icon">▶️</div>
+        <div class="name">YouTube Edu</div>
+      </a>
+      <a href="https://www.geeksforgeeks.org" class="link-card">
+        <div class="icon">💻</div>
+        <div class="name">GeeksforGeeks</div>
+      </a>
+      <a href="https://www.coursera.org" class="link-card">
+        <div class="icon">🌍</div>
+        <div class="name">Coursera</div>
+      </a>
+      <a href="https://ncert.nic.in" class="link-card">
+        <div class="icon">📖</div>
+        <div class="name">NCERT</div>
+      </a>
+      <a href="https://byjus.com" class="link-card">
+        <div class="icon">🧠</div>
+        <div class="name">Byju's</div>
+      </a>
+    </div>
+
+    <div class="footer">
+      Built with ❤️ for Students
+    </div>
+  </div>
+
+  <script>
+    function handleSearch(e) {
+      e.preventDefault();
+      const query = document.getElementById('search-input').value.trim();
+      if (!query) return;
+
+      let url;
+      if (query.includes('.') && !query.includes(' ')) {
+        url = query.startsWith('http') ? query : 'https://' + query;
+      } else {
+        url = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+      }
+      window.location.href = url;
+    }
+
+    const hour = new Date().getHours();
+    let greeting = 'Good Morning! Happy Learning 📚';
+    if (hour >= 12 && hour < 17) greeting = 'Good Afternoon! Keep Studying 📖';
+    else if (hour >= 17) greeting = 'Good Evening! Study Time 🌙';
+    document.getElementById('greeting').textContent = greeting;
+  </script>
+</body>
+</html>
