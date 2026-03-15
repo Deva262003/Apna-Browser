@@ -3,82 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <title>Apna Study Browser</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400" />
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="toolbar">
-    <div class="nav-controls">
-      <button id="back-btn" disabled>←</button>
-      <button id="forward-btn" disabled>→</button>
-      <button id="refresh-btn">⟳</button>
-      <button id="home-btn">🏠</button>
+    <div class="nav-controls" aria-label="Navigation controls">
+      <button id="back-btn" disabled title="Back"><span class="material-symbols-outlined">arrow_back</span></button>
+      <button id="forward-btn" disabled title="Forward"><span class="material-symbols-outlined">arrow_forward</span></button>
+      <button id="refresh-btn" title="Refresh"><span class="material-symbols-outlined">refresh</span></button>
+      <button id="home-btn" title="Home"><span class="material-symbols-outlined">home</span></button>
     </div>
 
     <div class="url-container">
-      <input id="url-bar" type="text" placeholder="Search or enter URL...">
-      <button id="go-btn">Go</button>
+      <input id="url-bar" type="text" placeholder="Search or enter URL..." aria-label="Search or URL bar">
+      <button id="go-btn"><span class="material-symbols-outlined">travel_explore</span><span>Go</span></button>
     </div>
 
     <div class="feature-controls">
-      <button id="summarize-btn" class="feature-btn" title="AI Summarize">
-        📝 <span>Summarize</span>
+      <button id="more-tools-btn" class="feature-btn launcher-btn" title="More Tools" aria-expanded="false" aria-controls="tools-menu">
+        <span class="material-symbols-outlined feature-icon">apps</span><span class="feature-label">More Tools</span>
       </button>
-      <button id="notes-btn" class="feature-btn" title="Generate Notes">
-        📓 <span>Notes</span>
-      </button>
-      <button id="qna-btn" class="feature-btn" title="Ask Questions">
-        💬 <span>Ask AI</span>
-      </button>
-      <button id="flashcards-btn" class="feature-btn" title="Flashcards">
-        🎴 <span>Cards</span>
-      </button>
-      <button id="translate-btn" class="feature-btn" title="Translate">
-        🌍 <span>Translate</span>
-      </button>
-      <button id="reading-btn" class="feature-btn" title="Reading Mode">
-        📖 <span>Read</span>
-      </button>
-      <button id="timer-btn" class="feature-btn" title="Study Timer">
-        ⏱️ <span>Timer</span>
-      </button>
-      <button id="focus-btn" class="feature-btn" title="Focus Mode">
-        🎯 <span>Focus</span>
-      </button>
-      <button id="screenshot-btn" class="feature-btn" title="Screenshot">
-        📸 <span>Snap</span>
-      </button>
-      <button id="citation-btn" class="feature-btn" title="Cite">
-        📚 <span>Cite</span>
-      </button>
+      <div id="tools-menu" class="tools-menu" role="menu" aria-label="More Tools Menu">
+        <button id="summarize-btn" class="feature-btn tools-item" title="AI Summarize"><span class="material-symbols-outlined feature-icon">summarize</span><span class="feature-label">Summary</span></button>
+        <button id="notes-btn" class="feature-btn tools-item" title="Generate Notes"><span class="material-symbols-outlined feature-icon">edit_note</span><span class="feature-label">Notes</span></button>
+        <button id="qna-btn" class="feature-btn tools-item" title="Ask Questions"><span class="material-symbols-outlined feature-icon">quiz</span><span class="feature-label">Ask AI</span></button>
+        <button id="flashcards-btn" class="feature-btn tools-item" title="Flashcards"><span class="material-symbols-outlined feature-icon">style</span><span class="feature-label">Cards</span></button>
+        <button id="translate-btn" class="feature-btn tools-item" title="Translate"><span class="material-symbols-outlined feature-icon">translate</span><span class="feature-label">Translate</span></button>
+        <button id="reading-btn" class="feature-btn tools-item" title="Reading Mode"><span class="material-symbols-outlined feature-icon">chrome_reader_mode</span><span class="feature-label">Read</span></button>
+        <button id="timer-btn" class="feature-btn tools-item" title="Study Timer"><span class="material-symbols-outlined feature-icon">timer</span><span class="feature-label">Timer</span></button>
+        <button id="history-btn" class="feature-btn tools-item" title="History"><span class="material-symbols-outlined feature-icon">history</span><span class="feature-label">History</span></button>
+        <button id="focus-btn" class="feature-btn tools-item" title="Focus Mode"><span class="material-symbols-outlined feature-icon">center_focus_strong</span><span class="feature-label">Focus</span></button>
+        <button id="screenshot-btn" class="feature-btn tools-item" title="Screenshot"><span class="material-symbols-outlined feature-icon">photo_camera</span><span class="feature-label">Snap</span></button>
+      </div>
     </div>
   </div>
 
-  <div id="progress-bar" class="progress-bar"></div>
+  <div class="progress-wrap">
+    <div id="progress-bar" class="progress-bar"></div>
+  </div>
+
+  <div class="tabs-bar">
+    <div id="tabs-list" class="tabs-list"></div>
+  </div>
 
   <div class="main-content">
     <div id="sidebar" class="sidebar hidden">
       <div class="sidebar-header">
         <h3 id="sidebar-title">AI Assistant</h3>
-        <button id="close-sidebar">×</button>
+        <button id="close-sidebar" aria-label="Close sidebar">x</button>
       </div>
       <div id="sidebar-content"></div>
     </div>
 
     <div class="webview-container">
-      <webview id="webview" src="homepage.html"></webview>
+      <div id="webview-stack" class="webview-stack"></div>
     </div>
   </div>
 
   <div class="status-bar">
-    <span>📚 Today: <span id="today-time">0h 0m</span></span>
-    <span>🔥 Streak: <span id="streak-count">0</span> days</span>
-    <span id="focus-status" class="hidden">🎯 Focus Mode Active</span>
+    <div class="status-left">
+      <span>Browser is managed by apnipathshala.org</span>
+      <span id="focus-status" class="hidden">Focus Mode Active</span>
+    </div>
+    <div class="status-right">
+      <span id="timer-mini" class="pill hidden">Timer: 25:00</span>
+      <span id="page-status" class="pill">Ready</span>
+    </div>
   </div>
 
   <div id="floating-timer" class="floating-timer hidden">
     <div id="timer-display">25:00</div>
-    <button id="timer-pause">⏸</button>
-    <button id="timer-stop">⏹</button>
+    <button id="timer-pause">Pause</button>
+    <button id="timer-stop">Stop</button>
   </div>
 
   <script src="utils/helpers.js"></script>
@@ -90,8 +89,8 @@
   <script src="features/focus-mode.js"></script>
   <script src="features/translator.js"></script>
   <script src="features/flashcards.js"></script>
-  <script src="features/citations.js"></script>
   <script src="features/study-timer.js"></script>
+  <script src="features/history.js"></script>
   <script src="features/reading-mode.js"></script>
   <script src="features/screenshots.js"></script>
   <script src="features/dictionary.js"></script>
@@ -99,3 +98,5 @@
   <script src="app.js"></script>
 </body>
 </html>
+
+

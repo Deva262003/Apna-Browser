@@ -1,11 +1,22 @@
 ﻿let dictionaryEnabled = false;
+const boundDictionaryWebviews = new WeakSet();
 
-webview.addEventListener('did-stop-loading', () => {
-  if (!dictionaryEnabled) {
-    enableDictionary();
-    dictionaryEnabled = true;
-  }
-});
+window.bindDictionaryToWebview = function(view) {
+  if (!view || boundDictionaryWebviews.has(view)) return;
+
+  view.addEventListener('did-stop-loading', () => {
+    if (!dictionaryEnabled) {
+      enableDictionary();
+      dictionaryEnabled = true;
+    }
+  });
+
+  boundDictionaryWebviews.add(view);
+};
+
+if (typeof webview !== 'undefined' && webview) {
+  window.bindDictionaryToWebview(webview);
+}
 
 async function enableDictionary() {
   await executeInWebview(`

@@ -47,20 +47,37 @@ apna-study-browser/
 npm install
 ```
 
-2. Add your Claude API key in `renderer/utils/api.js`:
-
-```js
-const CLAUDE_API_KEY = 'YOUR_CLAUDE_API_KEY_HERE';
-```
-
-3. Start the app:
+2. Configure your API (ZLM first):
 
 ```bash
+# Option A: ZLM via environment variables (recommended)
+# PowerShell
+$env:LLM_PROVIDER="zlm"
+$env:ZLM_API_URL="https://your-zlm-host"
+$env:ZLM_API_KEY="your_key_here"
+$env:ZLM_MODEL="zlm-chat"
 npm start
+```
+
+```js
+// Option B: set once from DevTools console (stored locally)
+setLlmProvider("zlm");
+setZlmApiConfig({
+  apiUrl: "https://your-zlm-host",
+  apiKey: "your_key_here",
+  model: "zlm-chat"
+});
+```
+
+3. Optional fallback (Anthropic):
+
+```bash
+$env:LLM_PROVIDER="anthropic"
+$env:ANTHROPIC_API_KEY="your_key_here"
 ```
 
 ## Notes
 
 - Some features depend on page script permissions and may vary by website.
-- AI features require a valid Anthropic API key.
+- AI features require a valid API configuration (ZLM or Anthropic).
 - Focus Mode blocks common distractor domains listed in `renderer/features/focus-mode.js`.

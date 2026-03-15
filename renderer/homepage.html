@@ -1,132 +1,348 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Apna Study Browser - Home</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@400" />
   <style>
+    :root {
+      --bg-a: #f8fafc;
+      --bg-b: #eef2ff;
+      --bg-c: #fff7ed;
+      --card: rgba(255, 255, 255, 0.95);
+      --card-soft: rgba(255, 255, 255, 0.92);
+      --ink: #0f172a;
+      --muted: #475569;
+      --brand: #f59e0b;
+      --brand-2: #fb923c;
+      --ok: #10b981;
+      --radius: 18px;
+      --shadow: 0 14px 30px rgba(15, 23, 42, 0.1);
+      --mx: 0px;
+      --my: 0px;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
     body {
-      font-family: -apple-system, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
+      font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(450px circle at calc(18% + var(--mx)) calc(20% + var(--my)), rgba(245, 158, 11, 0.22), transparent 50%),
+        radial-gradient(420px circle at calc(86% - var(--mx)) calc(12% + var(--my)), rgba(99, 102, 241, 0.1), transparent 42%),
+        linear-gradient(155deg, var(--bg-a), var(--bg-b) 48%, var(--bg-c));
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      overflow-x: hidden;
     }
-    .container { max-width: 800px; text-align: center; }
+
+    .material-symbols-outlined {
+      font-size: 20px;
+      line-height: 1;
+      vertical-align: middle;
+    }
+
+    .container {
+      width: min(100%, 1020px);
+      padding: 30px;
+      border-radius: 24px;
+      border: 1px solid rgba(148, 163, 184, 0.28);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(8px);
+      animation: slideUp 500ms ease;
+    }
+
+    .hero {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
     h1 {
-      color: white;
-      font-size: 48px;
-      margin-bottom: 10px;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1.1;
+      margin-bottom: 8px;
+      color: #0f172a;
     }
+
     .tagline {
-      color: rgba(255,255,255,0.9);
-      font-size: 18px;
-      margin-bottom: 40px;
+      color: #475569;
+      font-size: clamp(15px, 2vw, 18px);
+      max-width: 65ch;
     }
-    .search-box {
-      display: flex;
-      background: white;
-      border-radius: 50px;
-      padding: 5px;
-      margin-bottom: 50px;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+
+    .hero-meta { text-align: right; min-width: 220px; }
+
+    .clock {
+      font-size: 30px;
+      font-weight: 700;
+      color: #b45309;
+      letter-spacing: 0.8px;
     }
-    .search-box input {
-      flex: 1;
+
+    .date { color: #64748b; margin-top: 4px; }
+
+    .search-wrap {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      background: var(--card);
+      border-radius: 999px;
+      padding: 8px;
+      margin: 18px 0 24px;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.08);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+    }
+
+    .search-wrap input {
       border: none;
-      padding: 15px 25px;
-      font-size: 16px;
       outline: none;
+      font-size: 16px;
+      background: transparent;
+      padding: 12px 16px;
+      color: var(--ink);
     }
-    .search-box button {
-      padding: 15px 30px;
-      background: #667eea;
-      color: white;
+
+    .search-wrap input::placeholder { color: #64748b; }
+
+    .search-wrap button {
       border: none;
-      border-radius: 50px;
-      font-weight: 600;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-2));
+      color: white;
+      font-weight: 700;
+      padding: 0 24px;
       cursor: pointer;
+      transition: transform 220ms ease, filter 220ms ease;
     }
+
+    .search-wrap button:hover { transform: translateY(-1px); filter: saturate(1.05); }
+
+    .sections {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+    }
+
     .quick-links {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 15px;
-      margin-bottom: 30px;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
     }
+
     .link-card {
-      background: rgba(255,255,255,0.95);
-      padding: 20px;
-      border-radius: 15px;
       text-decoration: none;
-      color: #2d3748;
-      transition: 0.3s;
+      color: var(--ink);
+      background: var(--card-soft);
+      border-radius: var(--radius);
+      padding: 16px 12px;
+      min-height: 102px;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      transition: transform 260ms ease, box-shadow 260ms ease, background 260ms ease;
+      overflow: hidden;
     }
+
     .link-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.12);
+      background: #ffffff;
+      border-color: rgba(245, 158, 11, 0.38);
     }
-    .icon { font-size: 32px; margin-bottom: 10px; }
-    .name { font-weight: 600; font-size: 14px; }
+
+    .icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: #fff7ed;
+      color: #b45309;
+      margin-bottom: 8px;
+      border: 1px solid rgba(245, 158, 11, 0.26);
+    }
+
+    .name { font-weight: 700; font-size: 13px; }
+
+    .study-panel {
+      background: #fff7ed;
+      border: 1px solid rgba(245, 158, 11, 0.35);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .study-panel h2 { font-size: 16px; color: #9a3412; }
+
+    .tip {
+      background: rgba(255, 255, 255, 0.75);
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+      padding: 10px;
+      color: #334155;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .meter { margin-top: auto; }
+
+    .meter-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #475569;
+      margin-bottom: 6px;
+    }
+
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      background: rgba(148, 163, 184, 0.3);
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--ok), #86efac);
+      animation: fillBar 1.2s ease forwards;
+    }
+
+    .stats-cards {
+      margin-top: 10px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .stat-card {
+      border-radius: 12px;
+      border: 1px solid rgba(148, 163, 184, 0.24);
+      background: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+    }
+
+    .stat-label {
+      font-size: 11px;
+      color: #64748b;
+      margin-bottom: 4px;
+    }
+
+    .stat-value {
+      font-size: 17px;
+      font-weight: 700;
+      color: #9a3412;
+    }
+
     .footer {
-      color: rgba(255,255,255,0.8);
-      font-size: 14px;
-      margin-top: 30px;
+      margin-top: 18px;
+      color: #64748b;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fillBar { to { width: 76%; } }
+
+    @media (max-width: 980px) {
+      .sections { grid-template-columns: 1fr; }
+      .quick-links { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .hero-meta { text-align: left; }
+    }
+
+    @media (max-width: 700px) {
+      body { padding: 12px; }
+      .container { padding: 20px; }
+      .quick-links { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .search-wrap { grid-template-columns: 1fr; border-radius: 20px; }
+      .search-wrap button { height: 44px; }
+      .clock { font-size: 24px; }
+      .stats-cards { grid-template-columns: 1fr; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>🎓 Apna Study Browser</h1>
-    <p class="tagline" id="greeting">Good Morning! Happy Learning 📚</p>
+  <main class="container">
+    <section class="hero">
+      <div>
+        <h1>Apna Study Browser</h1>
+        <p class="tagline" id="greeting">Smart space for focus, revision, and deep learning.</p>
+      </div>
+      <div class="hero-meta">
+        <div class="clock" id="clock">00:00:00</div>
+        <div class="date" id="date">Loading date...</div>
+      </div>
+    </section>
 
-    <form class="search-box" onsubmit="handleSearch(event)">
-      <input id="search-input" type="text" placeholder="Search Google or enter URL..." autofocus>
-      <button type="submit">Search</button>
+    <form class="search-wrap" onsubmit="handleSearch(event)">
+      <input id="search-input" type="text" placeholder="Search Google or paste a website URL" autofocus>
+      <button type="submit">Explore</button>
     </form>
 
-    <div class="quick-links">
-      <a href="https://en.wikipedia.org" class="link-card">
-        <div class="icon">📚</div>
-        <div class="name">Wikipedia</div>
-      </a>
-      <a href="https://www.khanacademy.org" class="link-card">
-        <div class="icon">🎓</div>
-        <div class="name">Khan Academy</div>
-      </a>
-      <a href="https://nptel.ac.in" class="link-card">
-        <div class="icon">🎥</div>
-        <div class="name">NPTEL</div>
-      </a>
-      <a href="https://www.youtube.com/education" class="link-card">
-        <div class="icon">▶️</div>
-        <div class="name">YouTube Edu</div>
-      </a>
-      <a href="https://www.geeksforgeeks.org" class="link-card">
-        <div class="icon">💻</div>
-        <div class="name">GeeksforGeeks</div>
-      </a>
-      <a href="https://www.coursera.org" class="link-card">
-        <div class="icon">🌍</div>
-        <div class="name">Coursera</div>
-      </a>
-      <a href="https://ncert.nic.in" class="link-card">
-        <div class="icon">📖</div>
-        <div class="name">NCERT</div>
-      </a>
-      <a href="https://byjus.com" class="link-card">
-        <div class="icon">🧠</div>
-        <div class="name">Byju's</div>
-      </a>
-    </div>
+    <section class="sections">
+      <div class="quick-links">
+        <a href="https://en.wikipedia.org" class="link-card"><div class="icon"><span class="material-symbols-outlined">menu_book</span></div><div class="name">Wikipedia</div></a>
+        <a href="https://www.khanacademy.org" class="link-card"><div class="icon"><span class="material-symbols-outlined">school</span></div><div class="name">Khan Academy</div></a>
+        <a href="https://nptel.ac.in" class="link-card"><div class="icon"><span class="material-symbols-outlined">smart_display</span></div><div class="name">NPTEL</div></a>
+        <a href="https://www.youtube.com/education" class="link-card"><div class="icon"><span class="material-symbols-outlined">play_circle</span></div><div class="name">YouTube Edu</div></a>
+        <a href="https://www.geeksforgeeks.org" class="link-card"><div class="icon"><span class="material-symbols-outlined">code</span></div><div class="name">GeeksforGeeks</div></a>
+        <a href="https://www.coursera.org" class="link-card"><div class="icon"><span class="material-symbols-outlined">language</span></div><div class="name">Coursera</div></a>
+        <a href="https://ncert.nic.in" class="link-card"><div class="icon"><span class="material-symbols-outlined">import_contacts</span></div><div class="name">NCERT</div></a>
+        <a href="https://byjus.com" class="link-card"><div class="icon"><span class="material-symbols-outlined">psychology</span></div><div class="name">Byjus</div></a>
+      </div>
 
-    <div class="footer">
-      Built with ❤️ for Students
-    </div>
-  </div>
+      <aside class="study-panel">
+        <h2>Today Focus</h2>
+        <div class="tip" id="tip-box">Tip: Break your session into 25-minute blocks and test yourself after each block.</div>
+        <div class="tip">Quick habit: write one question before opening each article, then answer it in your own words.</div>
+        <div class="meter">
+          <div class="meter-label"><span>Daily Momentum</span><span id="momentum-label">76%</span></div>
+          <div class="bar"><div class="bar-fill"></div></div>
+        </div>
+        <div class="stats-cards">
+          <div class="stat-card">
+            <div class="stat-label">Time Usage</div>
+            <div class="stat-value" id="home-today-time">0h 0m</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">Streak</div>
+            <div class="stat-value"><span id="home-streak-count">0</span> days</div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="footer">Built for students who learn with intention.</div>
+  </main>
 
   <script>
     function handleSearch(e) {
@@ -143,11 +359,84 @@
       window.location.href = url;
     }
 
-    const hour = new Date().getHours();
-    let greeting = 'Good Morning! Happy Learning 📚';
-    if (hour >= 12 && hour < 17) greeting = 'Good Afternoon! Keep Studying 📖';
-    else if (hour >= 17) greeting = 'Good Evening! Study Time 🌙';
-    document.getElementById('greeting').textContent = greeting;
+    const tips = [
+      'Tip: Break your session into 25-minute blocks and test yourself after each block.',
+      'Tip: Read headings first, then predict what each section will teach.',
+      'Tip: Summarize every page in 3 bullet points before switching tabs.',
+      'Tip: Revise old notes for 10 minutes before starting new topics.'
+    ];
+
+    function updateGreeting() {
+      const hour = new Date().getHours();
+      let greeting = 'Good Morning. Start with your toughest topic first.';
+      if (hour >= 12 && hour < 17) greeting = 'Good Afternoon. Keep momentum with short focused sessions.';
+      else if (hour >= 17) greeting = 'Good Evening. Time for smart revision and recall.';
+      document.getElementById('greeting').textContent = greeting;
+    }
+
+    function updateClock() {
+      const now = new Date();
+      document.getElementById('clock').textContent = now.toLocaleTimeString();
+      document.getElementById('date').textContent = now.toLocaleDateString(undefined, {
+        weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'
+      });
+    }
+
+    function rotateTips() {
+      let idx = 0;
+      setInterval(() => {
+        idx = (idx + 1) % tips.length;
+        document.getElementById('tip-box').textContent = tips[idx];
+      }, 7000);
+    }
+
+    function ambientMotion() {
+      let ticking = false;
+      window.addEventListener('pointermove', (event) => {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        if (ticking) return;
+
+        requestAnimationFrame(() => {
+          const x = (event.clientX / window.innerWidth - 0.5) * 18;
+          const y = (event.clientY / window.innerHeight - 0.5) * 18;
+          document.documentElement.style.setProperty('--mx', `${x}px`);
+          document.documentElement.style.setProperty('--my', `${y}px`);
+          ticking = false;
+        });
+
+        ticking = true;
+      });
+    }
+
+    function updateStudyStats() {
+      const stats = JSON.parse(localStorage.getItem('studyStats') || '{}');
+      const todayKey = new Date().toDateString();
+      const todayMinutes = stats[todayKey] ? stats[todayKey].minutes : 0;
+
+      const hours = Math.floor(todayMinutes / 60);
+      const mins = todayMinutes % 60;
+      document.getElementById('home-today-time').textContent = `${hours}h ${mins}m`;
+
+      const dates = Object.keys(stats).sort().reverse();
+      let streak = 0;
+      const today = new Date();
+
+      for (let i = 0; i < dates.length; i++) {
+        const date = new Date(dates[i]);
+        const diff = Math.floor((today - date) / (1000 * 60 * 60 * 24));
+        if (diff === i) streak++;
+        else break;
+      }
+
+      document.getElementById('home-streak-count').textContent = streak;
+    }
+
+    updateGreeting();
+    updateClock();
+    rotateTips();
+    ambientMotion();
+    updateStudyStats();
+    setInterval(updateClock, 1000);
   </script>
 </body>
 </html>

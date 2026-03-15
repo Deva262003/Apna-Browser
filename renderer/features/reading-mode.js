@@ -53,7 +53,6 @@ async function enableReadingMode() {
         🔊 Read Aloud
       </button>
       <div id="tts-controls" style="display: none; margin-top: 10px;">
-        <button onclick="pauseTTS()" style="padding: 8px 15px; background: #667eea; color: white; border: none; border-radius: 6px; cursor: pointer; margin-right: 5px;">⏸ Pause</button>
         <button onclick="stopTTS()" style="padding: 8px 15px; background: #e53e3e; color: white; border: none; border-radius: 6px; cursor: pointer;">⏹ Stop</button>
       </div>
     </div>

@@ -6,8 +6,14 @@
   'focus_master': { name: 'Focus Master', icon: '🎯', unlocked: false }
 };
 
+const storedAchievements = getStorage('achievements') || {};
+Object.keys(achievements).forEach((key) => {
+  if (storedAchievements[key] && typeof storedAchievements[key].unlocked === 'boolean') {
+    achievements[key].unlocked = storedAchievements[key].unlocked;
+  }
+});
+
 function checkAchievements() {
-  const stats = getStorage('studyStats') || {};
   const summaries = getStorage('summaries') || {};
 
   if (Object.keys(summaries).length >= 1 && !achievements.first_summary.unlocked) {
@@ -16,14 +22,12 @@ function checkAchievements() {
 }
 
 function unlockAchievement(id) {
+  if (!achievements[id] || achievements[id].unlocked) return;
+
   achievements[id].unlocked = true;
   setStorage('achievements', achievements);
 
-  showNotification(`🏆 Achievement Unlocked: ${achievements[id].name}`, 'success');
-
-  try {
-    new Audio('assets/sounds/achievement.mp3').play();
-  } catch {}
+  // Keep achievement tracking silent to avoid distracting popups.
 }
 
 setInterval(checkAchievements, 30000);
